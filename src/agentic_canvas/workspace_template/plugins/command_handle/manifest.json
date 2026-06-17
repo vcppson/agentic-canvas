@@ -1,0 +1,46 @@
+{
+  "name": "command_handle",
+  "version": "0.1.0",
+  "summary": "Handles configured slash-prefixed workspace commands before orchestration.",
+  "documentation": "Handles configured slash-prefixed workspace commands before orchestration.\n\n## Behavior\nRuns as a pre-orchestrator stage plugin for slash-command dispatch.\nIf the current run input does not start with the configured prefix, it returns handled=false and lets orchestration continue.\nIf a command matches, it maps command arguments into target plugin params, calls that plugin through the runner protocol, and returns the target response while applying the command decision.\n\n## Input Schema\nType: object\nRequired: none\nProperties:\n- prefix: string\n\n## Output Schema\nType: object\nRequired: none\nProperties:\n- handled: boolean\n- command: ['object', 'null']\n- data: object\n\n## Dependencies\nLibraries: plugin_runtime, command_packs\nRequirements: none\nTags: commands, pre_orchestrator\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "prefix": {
+        "type": "string",
+        "default": "/"
+      }
+    },
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "handled": {
+        "type": "boolean"
+      },
+      "command": {
+        "type": [
+          "object",
+          "null"
+        ]
+      },
+      "data": {
+        "type": "object"
+      }
+    }
+  },
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime",
+    "command_packs"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "commands",
+    "pre_orchestrator"
+  ]
+}

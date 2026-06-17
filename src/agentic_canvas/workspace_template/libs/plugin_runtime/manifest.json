@@ -1,0 +1,23 @@
+{
+  "name": "plugin_runtime",
+  "version": "0.1.0",
+  "summary": "Small helpers for workspace-aware plugins.",
+  "documentation": "Small helpers for workspace-aware plugins.\n\n## API Reference\n\n### workspace_root\nType: function\nSource: __init__.py\nSignature: workspace_root(request: dict[str, Any]) -> Path\n\nReturn the workspace root path from a plugin execution request.\n\n### params\nType: function\nSource: __init__.py\nSignature: params(request: dict[str, Any]) -> dict[str, Any]\n\nReturn request parameters as a dictionary.\n\n### result\nType: function\nSource: __init__.py\nSignature: result(request: dict[str, Any], data: dict[str, Any], *, decision: str = 'continue', patch: dict[str, Any] | None = None, response: str | None = None) -> dict[str, Any]\n\nShape plugin output for either stage execution or direct call mode.\n\n### ensure_safe_name\nType: function\nSource: __init__.py\nSignature: ensure_safe_name(name: str, label: str = 'name') -> str\n\nValidate a plugin or library identifier and return it unchanged.\n\n### PluginWorkspaceStorage\nType: class\nSource: __init__.py\nSignature: class PluginWorkspaceStorage\n\nWorkspace-relative file helper for plugins that create or inspect files.\n\n### workspace_storage\nType: function\nSource: __init__.py\nSignature: workspace_storage(request: dict[str, Any]) -> PluginWorkspaceStorage\n\nReturn a workspace storage helper for the current plugin request.\n\n### iter_plugin_manifests\nType: function\nSource: __init__.py\nSignature: iter_plugin_manifests(root: Path) -> Iterable[dict[str, Any]]\n\nYield plugin manifest dictionaries from a workspace root.\n\n### load_plugin_manifest\nType: function\nSource: __init__.py\nSignature: load_plugin_manifest(root: Path, name: str) -> dict[str, Any]\n\nLoad a named plugin manifest from a workspace root.\n\n### iter_library_manifests\nType: function\nSource: __init__.py\nSignature: iter_library_manifests(root: Path) -> Iterable[dict[str, Any]]\n\nYield library manifest dictionaries from a workspace root.\n\n### load_library_manifest\nType: function\nSource: __init__.py\nSignature: load_library_manifest(root: Path, name: str) -> dict[str, Any]\n\nLoad a named library manifest from a workspace root.\n",
+  "exports": [
+    "workspace_root",
+    "params",
+    "result",
+    "ensure_safe_name",
+    "PluginWorkspaceStorage",
+    "workspace_storage",
+    "iter_plugin_manifests",
+    "load_plugin_manifest",
+    "iter_library_manifests",
+    "load_library_manifest"
+  ],
+  "requirements": [],
+  "libraries": [],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}

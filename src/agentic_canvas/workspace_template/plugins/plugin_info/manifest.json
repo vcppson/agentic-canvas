@@ -1,0 +1,40 @@
+{
+  "name": "plugin_info",
+  "version": "0.1.0",
+  "summary": "Returns detailed manifest information for a plugin or library.",
+  "documentation": "Returns detailed manifest information for a plugin or library.\n\n## Behavior\nLoads a full manifest for one installed plugin or library.\nUse kind=plugin to inspect workspace/plugins and kind=library to inspect workspace/libs; kind defaults to plugin.\n\n## Input Schema\nType: object\nRequired: name\nProperties:\n- name: string\n- kind: string; one of plugin, library\n\n## Output Schema\nType: object\nRequired: none\nProperties: none declared.\n\n## Dependencies\nLibraries: plugin_runtime\nRequirements: none\nTags: catalog, inspection\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "plugin",
+          "library"
+        ]
+      }
+    },
+    "required": [
+      "name"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object"
+  },
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "catalog",
+    "inspection"
+  ]
+}

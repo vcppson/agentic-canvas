@@ -1,0 +1,19 @@
+{
+  "name": "conversation",
+  "version": "0.1.0",
+  "summary": "Conversation memory workspace commands.",
+  "documentation": "Routes conversation memory slash commands to conversation command target plugins.",
+  "commands": [
+    {
+      "name": "conversation.clear",
+      "aliases": [
+        "/conversation clear",
+        "/memory clear"
+      ],
+      "plugin": "conversation_clear",
+      "params": {
+        "reason": "workspace command"
+      }
+    }
+  ]
+}

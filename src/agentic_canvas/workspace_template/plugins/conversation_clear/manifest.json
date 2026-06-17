@@ -1,0 +1,31 @@
+{
+  "name": "conversation_clear",
+  "version": "0.1.0",
+  "summary": "Clears loadable conversation memory while preserving audit records.",
+  "documentation": "Clears loadable conversation memory while preserving audit records.\n\n## Behavior\nClears the loadable conversation memory index for future runs.\nStored per-run memory files are preserved, and a clear audit record is written with the triggering run id and reason.\nIntended as a slash-command target that returns a human-readable response.\n\n## Input Schema\nType: object\nRequired: none\nProperties:\n- reason: string\n\n## Output Schema\nType: object\nRequired: none\nProperties: none declared.\n\n## Dependencies\nLibraries: plugin_runtime, conversation_memory\nRequirements: none\nTags: conversation, commands\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "reason": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object"
+  },
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime",
+    "conversation_memory"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "conversation",
+    "commands"
+  ]
+}

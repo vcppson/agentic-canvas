@@ -1,0 +1,17 @@
+{
+  "name": "manifest_docs",
+  "version": "0.1.0",
+  "summary": "Template-backed manifest documentation generation.",
+  "documentation": "Template-backed manifest documentation generation.\n\n## API Reference\n\n### generate_plugin_documentation\nType: function\nSource: __init__.py\nSignature: generate_plugin_documentation(plugin_name: str, summary: str, entry_point: str, input_schema: dict[str, Any], output_schema: dict[str, Any], libraries: list[str], requirements: list[str], tags: list[str]) -> str\n\nRender structured plugin manifest documentation from schema metadata.\n\n### generate_library_documentation\nType: function\nSource: __init__.py\nSignature: generate_library_documentation(library_dir: str | Path, library_name: str, summary: str, exports: list[str]) -> str\n\nRender structured library manifest documentation from exported Python API items.\n\n### describe_schema\nType: function\nSource: __init__.py\nSignature: describe_schema(schema: dict[str, Any]) -> list[str]\n\nDescribe a JSON-object schema in manifest documentation format.\n\n### collect_library_api_items\nType: function\nSource: __init__.py\nSignature: collect_library_api_items(library_dir: Path) -> dict[str, dict[str, str]]\n\nCollect top-level Python functions, classes, and values for library docs.\n",
+  "exports": [
+    "generate_plugin_documentation",
+    "generate_library_documentation",
+    "describe_schema",
+    "collect_library_api_items"
+  ],
+  "requirements": [],
+  "libraries": [],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}

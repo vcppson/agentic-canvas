@@ -1,0 +1,44 @@
+{
+  "schema_version": "1",
+  "orchestrator_prompt": "orchestrator.system_prompt",
+  "plugins_dir": "plugins",
+  "libraries_dir": "libs",
+  "commands_dir": "commands",
+  "runs_dir": "runs",
+  "stage_order": [
+    "pre_orchestrator",
+    "orchestrator",
+    "post_orchestrator"
+  ],
+  "stages": {
+    "pre_orchestrator": [
+      {
+        "plugin": "command_handle",
+        "params": {
+          "prefix": "/"
+        }
+      },
+      {
+        "plugin": "conversation_load",
+        "params": {
+          "limit": 5
+        }
+      }
+    ],
+    "post_orchestrator": [
+      {
+        "plugin": "conversation_store",
+        "params": {}
+      }
+    ]
+  },
+  "plugin_runner": {
+    "strategy": "subprocess",
+    "timeout_seconds": 120
+  },
+  "provider": {
+    "type": "local",
+    "model": "local",
+    "max_turns": 20
+  }
+}

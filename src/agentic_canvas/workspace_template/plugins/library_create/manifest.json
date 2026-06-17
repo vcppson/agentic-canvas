@@ -1,0 +1,53 @@
+{
+  "name": "library_create",
+  "version": "0.1.0",
+  "summary": "Creates a new workspace library with a required manifest.",
+  "documentation": "Creates a new workspace library with a required manifest.\n\n## Behavior\nCreates or replaces a reusable library under workspace/libs.\nWrites supplied files, validates declared library dependencies, and writes a required manifest.\nThe library documentation field is delegated to manifest_docs, which renders template-backed documentation from the summary plus exported Python API items and docstrings; callers do not provide manual documentation.\n\n## Input Schema\nType: object\nRequired: name, summary\nProperties:\n- name: string\n- summary: string\n- files: object\n- exports: array\n- requirements: array\n- libraries: array\n- overwrite: boolean\n\n## Output Schema\nType: object\nRequired: none\nProperties: none declared.\n\n## Dependencies\nLibraries: manifest_docs, plugin_runtime\nRequirements: none\nTags: creation, libraries\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "summary": {
+        "type": "string"
+      },
+      "files": {
+        "type": "object"
+      },
+      "exports": {
+        "type": "array"
+      },
+      "requirements": {
+        "type": "array"
+      },
+      "libraries": {
+        "type": "array"
+      },
+      "overwrite": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "name",
+      "summary"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object"
+  },
+  "requirements": [],
+  "libraries": [
+    "manifest_docs",
+    "plugin_runtime"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "creation",
+    "libraries"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "command_packs",
+  "version": "0.1.0",
+  "summary": "Loads, validates, matches, creates, and removes workspace command packs.",
+  "documentation": "Loads, validates, matches, creates, and removes workspace command packs.\n\n## API Reference\n\n### CommandMatch\nType: class\nSource: __init__.py\nSignature: class CommandMatch\n\nResolved command pack entry for one user input.\n\n### list_command_packs\nType: function\nSource: __init__.py\nSignature: list_command_packs(request: dict[str, Any], *, query: str = '') -> dict[str, Any]\n\nList command packs and configured commands.\n\n### create_command_pack\nType: function\nSource: __init__.py\nSignature: create_command_pack(request: dict[str, Any], manifest: dict[str, Any], *, overwrite: bool = False) -> dict[str, Any]\n\nCreate or replace a command pack manifest.\n\n### remove_command_pack\nType: function\nSource: __init__.py\nSignature: remove_command_pack(request: dict[str, Any], name: str) -> dict[str, Any]\n\nRemove a command pack directory.\n\n### match_command\nType: function\nSource: __init__.py\nSignature: match_command(request: dict[str, Any], *, prefix: str = COMMAND_PREFIX) -> dict[str, Any]\n\nMatch the current run input to a configured command.\n\n### params_for_match\nType: function\nSource: __init__.py\nSignature: params_for_match(match: dict[str, Any]) -> dict[str, Any]\n\nMap matched command args into target plugin params.\n\n### call_plugin\nType: function\nSource: imported from libs.plugin_calls\nSignature: call_plugin(plugin: str, params: dict[str, Any] | None = None, *, metadata: dict[str, Any] | None = None) -> dict[str, Any]\n\nAsk the Kernel to execute another plugin through the runner protocol.\n\n### validate_command_pack_manifest\nType: function\nSource: __init__.py\nSignature: validate_command_pack_manifest(manifest: dict[str, Any], *, request: dict[str, Any]) -> dict[str, Any]\n\nValidate and normalize one command pack manifest.\n",
+  "exports": [
+    "CommandMatch",
+    "list_command_packs",
+    "create_command_pack",
+    "remove_command_pack",
+    "match_command",
+    "params_for_match",
+    "call_plugin",
+    "validate_command_pack_manifest"
+  ],
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime",
+    "plugin_calls"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}

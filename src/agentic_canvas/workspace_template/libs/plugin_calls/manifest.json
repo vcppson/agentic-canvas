@@ -1,0 +1,17 @@
+{
+  "name": "plugin_calls",
+  "version": "0.1.0",
+  "summary": "Nested plugin invocation and explicit agent tool wrappers.",
+  "documentation": "Nested plugin invocation and explicit agent tool wrappers.\n\n## API Reference\n\n### call_plugin\nType: function\nSource: __init__.py\nSignature: call_plugin(plugin: str, params: dict[str, Any] | None = None, *, metadata: dict[str, Any] | None = None) -> dict[str, Any]\n\nAsk the Kernel to execute another plugin through the runner protocol.\n\n### plugin_tool\nType: function\nSource: __init__.py\nSignature: plugin_tool(request: dict[str, Any], plugin: str, *, name: str | None = None, description: str | None = None, metadata: dict[str, Any] | None = None) -> Callable[..., Any]\n\nWrap one installed workspace plugin as an explicit agent callable.\n",
+  "exports": [
+    "call_plugin",
+    "plugin_tool"
+  ],
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}

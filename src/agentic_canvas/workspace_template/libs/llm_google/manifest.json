@@ -1,0 +1,18 @@
+{
+  "name": "llm_google",
+  "version": "0.1.0",
+  "summary": "Google Gemini implementation of llm_core.LLMProvider.",
+  "documentation": "Google Gemini implementation of llm_core.LLMProvider.\n\n## API Reference\n\n### GoogleProvider\nType: class\nSource: __init__.py\nSignature: class GoogleProvider(LLMProvider)\n\nGoogle Gemini API adapter using the google-genai SDK.\n",
+  "exports": [
+    "GoogleProvider"
+  ],
+  "requirements": [
+    "google-genai>=1.0.0"
+  ],
+  "libraries": [
+    "llm_core"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}

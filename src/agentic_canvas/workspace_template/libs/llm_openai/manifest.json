@@ -1,0 +1,18 @@
+{
+  "name": "llm_openai",
+  "version": "0.1.0",
+  "summary": "OpenAI Responses API implementation of llm_core.LLMProvider.",
+  "documentation": "OpenAI Responses API implementation of llm_core.LLMProvider.\n\n## API Reference\n\n### OpenAIProvider\nType: class\nSource: __init__.py\nSignature: class OpenAIProvider(LLMProvider)\n\nOpenAI Responses API adapter.\n",
+  "exports": [
+    "OpenAIProvider"
+  ],
+  "requirements": [
+    "openai>=1.0.0"
+  ],
+  "libraries": [
+    "llm_core"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "llm_anthropic",
+  "version": "0.1.0",
+  "summary": "Anthropic Messages API implementation of llm_core.LLMProvider.",
+  "documentation": "Anthropic Messages API implementation of llm_core.LLMProvider.\n\n## API Reference\n\n### AnthropicProvider\nType: class\nSource: __init__.py\nSignature: class AnthropicProvider(LLMProvider)\n\nAnthropic Messages API adapter.\n",
+  "exports": [
+    "AnthropicProvider"
+  ],
+  "requirements": [
+    "anthropic>=0.40.0"
+  ],
+  "libraries": [
+    "llm_core"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}

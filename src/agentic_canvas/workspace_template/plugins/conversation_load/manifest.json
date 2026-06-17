@@ -1,0 +1,44 @@
+{
+  "name": "conversation_load",
+  "version": "0.1.0",
+  "summary": "Loads recent prior run conversations into orchestrator prompt context.",
+  "documentation": "Loads recent prior run conversations into orchestrator prompt context.\n\n## Behavior\nRuns as a pre-orchestrator stage plugin for conversation memory loading.\nLoads the newest indexed prior conversations, formats them as an additional prompt section, and patches Run Context additional_prompts.\nIt does not change the current user input.\n\n## Input Schema\nType: object\nRequired: none\nProperties:\n- limit: integer\n\n## Output Schema\nType: object\nRequired: none\nProperties:\n- loaded: integer\n- additional_prompt: ['object', 'null']\n\n## Dependencies\nLibraries: plugin_runtime, conversation_memory\nRequirements: none\nTags: conversation, memory, pre_orchestrator\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "default": 5
+      }
+    },
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "loaded": {
+        "type": "integer"
+      },
+      "additional_prompt": {
+        "type": [
+          "object",
+          "null"
+        ]
+      }
+    }
+  },
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime",
+    "conversation_memory"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "conversation",
+    "memory",
+    "pre_orchestrator"
+  ]
+}

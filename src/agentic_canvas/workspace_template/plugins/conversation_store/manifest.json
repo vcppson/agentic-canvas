@@ -1,0 +1,42 @@
+{
+  "name": "conversation_store",
+  "version": "0.1.0",
+  "summary": "Stores the current run as workspace conversation memory.",
+  "documentation": "Stores the current run as workspace conversation memory.\n\n## Behavior\nRuns as a post-orchestrator stage plugin for conversation memory persistence.\nStores the current run conversation record and updates the conversation memory index idempotently.\n\n## Input Schema\nType: object\nRequired: none\nProperties: none declared.\n\n## Output Schema\nType: object\nRequired: none\nProperties:\n- stored: boolean\n- run_id: string\n- path: string\n- index_path: string\n\n## Dependencies\nLibraries: plugin_runtime, conversation_memory\nRequirements: none\nTags: conversation, memory, post_orchestrator\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "stored": {
+        "type": "boolean"
+      },
+      "run_id": {
+        "type": "string"
+      },
+      "path": {
+        "type": "string"
+      },
+      "index_path": {
+        "type": "string"
+      }
+    }
+  },
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime",
+    "conversation_memory"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "conversation",
+    "memory",
+    "post_orchestrator"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "command_pack_catalog",
+  "version": "0.1.0",
+  "summary": "Lists and searches installed workspace command packs.",
+  "documentation": "Lists and searches installed workspace command packs.\n\n## Behavior\nLists command pack manifests from workspace/commands.\nThe optional query filters against pack names, summaries, documentation, and command entries.\nReturned command entries are lightweight summaries containing command names, aliases, and target plugins.\n\n## Input Schema\nType: object\nRequired: none\nProperties:\n- query: string\n\n## Output Schema\nType: object\nRequired: none\nProperties: none declared.\n\n## Dependencies\nLibraries: plugin_runtime, command_packs\nRequirements: none\nTags: commands, catalog\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object"
+  },
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime",
+    "command_packs"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "commands",
+    "catalog"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "reference_agent",
+  "version": "0.1.0",
+  "summary": "Reference code-first agent using GoogleProvider and explicit callable tools.",
+  "documentation": "Reference code-first agent using GoogleProvider and explicit callable tools.\n\n## Behavior\nDemonstrates building a plugin-local Agent with an LLM provider and explicit tools.\nExposes one decorated local Python tool for text metrics and one wrapped workspace plugin tool for manifest inspection.\nRuns a bounded synchronous agent loop and returns both the final response and structured agent execution details.\n\n## Input Schema\nType: object\nRequired: prompt\nProperties:\n- prompt: string\n- model: string\n- max_turns: integer\n\n## Output Schema\nType: object\nRequired: response, agent\nProperties:\n- response: string\n- agent: object\n\n## Dependencies\nLibraries: plugin_runtime, plugin_calls, agent_runtime, llm_google\nRequirements: none\nTags: example, agent, llm\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "prompt": {
+        "type": "string"
+      },
+      "model": {
+        "type": "string"
+      },
+      "max_turns": {
+        "type": "integer",
+        "minimum": 1,
+        "default": 8
+      }
+    },
+    "required": [
+      "prompt"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "response": {
+        "type": "string"
+      },
+      "agent": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "response",
+      "agent"
+    ]
+  },
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime",
+    "plugin_calls",
+    "agent_runtime",
+    "llm_google"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "example",
+    "agent",
+    "llm"
+  ]
+}

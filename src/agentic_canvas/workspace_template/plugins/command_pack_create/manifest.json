@@ -1,0 +1,37 @@
+{
+  "name": "command_pack_create",
+  "version": "0.1.0",
+  "summary": "Creates or overwrites a workspace command pack.",
+  "documentation": "Creates or overwrites a workspace command pack.\n\n## Behavior\nCreates or replaces a command pack manifest under workspace/commands.\nThe supplied manifest is validated before writing, including target plugin existence and command argument definitions.\nUse overwrite=true only when replacing an existing command pack intentionally.\n\n## Input Schema\nType: object\nRequired: manifest\nProperties:\n- manifest: object\n- overwrite: boolean\n\n## Output Schema\nType: object\nRequired: none\nProperties: none declared.\n\n## Dependencies\nLibraries: plugin_runtime, command_packs\nRequirements: none\nTags: commands, creation\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "manifest": {
+        "type": "object"
+      },
+      "overwrite": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "manifest"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object"
+  },
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime",
+    "command_packs"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "commands",
+    "creation"
+  ]
+}

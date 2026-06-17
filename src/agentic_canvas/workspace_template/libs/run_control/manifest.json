@@ -1,0 +1,19 @@
+{
+  "name": "run_control",
+  "version": "0.1.0",
+  "summary": "Run-level control helpers for plugins.",
+  "documentation": "Run-level control helpers for plugins.\n\n## API Reference\n\n### await_user\nType: function\nSource: __init__.py\nSignature: await_user(message: str, *, patch: dict[str, Any] | None = None) -> str\n\nAsk the kernel for user input and return the answer to this plugin call.\n\n### stop\nType: function\nSource: __init__.py\nSignature: stop(reason: str = '', *, response: str | None = None, patch: dict[str, Any] | None = None) -> NoReturn\n\nStop the current run successfully and skip remaining execution.\n\n### abort\nType: function\nSource: __init__.py\nSignature: abort(reason: str, *, patch: dict[str, Any] | None = None) -> NoReturn\n\nAbort the current run with a reason.\n\n### set_input\nType: function\nSource: __init__.py\nSignature: set_input(value: str) -> None\n\nRequest that the kernel replace Run Context input with a new value.\n\n### patch_context\nType: function\nSource: __init__.py\nSignature: patch_context(patch: dict[str, Any]) -> None\n\nAccumulate a patch that the kernel will merge into Run Context.\n\n### consume_patch\nType: function\nSource: __init__.py\nSignature: consume_patch() -> dict[str, Any]\n\nReturn and clear the accumulated Run Context patch.\n",
+  "exports": [
+    "await_user",
+    "stop",
+    "abort",
+    "set_input",
+    "patch_context",
+    "consume_patch"
+  ],
+  "requirements": [],
+  "libraries": [],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}

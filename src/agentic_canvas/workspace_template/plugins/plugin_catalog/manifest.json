@@ -1,0 +1,45 @@
+{
+  "name": "plugin_catalog",
+  "version": "0.1.0",
+  "summary": "Lists and searches installed workspace plugins.",
+  "documentation": "Lists and searches installed workspace plugins.\n\n## Behavior\nSearches installed workspace plugin manifests.\nThe optional query matches plugin name, summary, documentation, and tags.\nBy default it returns lightweight summaries; include_schemas=true adds input and output schemas to each result.\n\n## Input Schema\nType: object\nRequired: none\nProperties:\n- query: string\n- include_schemas: boolean\n\n## Output Schema\nType: object\nRequired: plugins, count\nProperties:\n- plugins: array\n- count: integer\n\n## Dependencies\nLibraries: plugin_runtime\nRequirements: none\nTags: catalog, discovery\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string"
+      },
+      "include_schemas": {
+        "type": "boolean"
+      }
+    },
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "plugins": {
+        "type": "array"
+      },
+      "count": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "plugins",
+      "count"
+    ]
+  },
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "catalog",
+    "discovery"
+  ]
+}

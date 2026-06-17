@@ -1,0 +1,27 @@
+{
+  "name": "agent_runtime",
+  "version": "0.1.0",
+  "summary": "Code-first agents and validated Python callable tools.",
+  "documentation": "Code-first agents and validated Python callable tools.\n\n## API Reference\n\n### Agent\nType: class\nSource: agent.py\nSignature: class Agent\n\nProvider-neutral, bounded, synchronous model/tool loop.\n\n### AgentConfig\nType: class\nSource: models.py\nSignature: class AgentConfig\n\nExecution limits and generation settings for an Agent.\n\n### AgentResult\nType: class\nSource: models.py\nSignature: class AgentResult\n\nStructured result of a completed agent run.\n\n### AgentTool\nType: class\nSource: models.py\nSignature: class AgentTool(Protocol)\n\nStructural interface accepted by Agent for model-callable tools.\n\n### FunctionTool\nType: class\nSource: tools.py\nSignature: class FunctionTool\n\nValidated model tool backed by an explicitly supplied Python callable.\n\n### ToolExecution\nType: class\nSource: models.py\nSignature: class ToolExecution\n\nOne local tool execution performed during an agent run.\n\n### tool\nType: function\nSource: tools.py\nSignature: tool(function: Callable[..., Any] | None = None, *, name: str | None = None, description: str | None = None) -> Callable[..., Any]\n\nAttach optional model-tool metadata to a callable.\n\n### AgentError\nType: class\nSource: models.py\nSignature: class AgentError(RuntimeError)\n\nBase error raised by the workspace agent runtime.\n\n### AgentMaxTurnsError\nType: class\nSource: models.py\nSignature: class AgentMaxTurnsError(AgentError)\n\nRaised when an agent exhausts its configured model-turn budget.\n\n### ToolDefinitionError\nType: class\nSource: models.py\nSignature: class ToolDefinitionError(AgentError)\n\nRaised when a Python callable cannot be exposed safely as a tool.\n",
+  "exports": [
+    "Agent",
+    "AgentConfig",
+    "AgentResult",
+    "AgentTool",
+    "FunctionTool",
+    "ToolExecution",
+    "tool",
+    "AgentError",
+    "AgentMaxTurnsError",
+    "ToolDefinitionError"
+  ],
+  "requirements": [
+    "pydantic>=2.0.0"
+  ],
+  "libraries": [
+    "llm_core"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}

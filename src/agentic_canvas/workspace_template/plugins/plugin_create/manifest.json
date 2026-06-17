@@ -1,0 +1,65 @@
+{
+  "name": "plugin_create",
+  "version": "0.1.0",
+  "summary": "Creates a new workspace plugin with a required manifest.",
+  "documentation": "Creates a new workspace plugin with a required manifest.\n\n## Behavior\nCreates or replaces a workspace plugin under workspace/plugins.\nWrites supplied files, validates declared library dependencies, verifies that the entry point file exists, and writes a required manifest.\nWhen documentation is not supplied, it delegates to manifest_docs for template-backed structured documentation from the summary, schemas, dependencies, and tags.\n\n## Input Schema\nType: object\nRequired: name, summary\nProperties:\n- name: string\n- summary: string\n- documentation: string\n- entry_point: string\n- files: object\n- input_schema: object\n- output_schema: object\n- requirements: array\n- libraries: array\n- tags: array\n- overwrite: boolean\n\n## Output Schema\nType: object\nRequired: none\nProperties: none declared.\n\n## Dependencies\nLibraries: manifest_docs, plugin_runtime\nRequirements: none\nTags: creation, plugins\n",
+  "entry_point": "plugin.py:plugin_main",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "summary": {
+        "type": "string"
+      },
+      "documentation": {
+        "type": "string"
+      },
+      "entry_point": {
+        "type": "string"
+      },
+      "files": {
+        "type": "object"
+      },
+      "input_schema": {
+        "type": "object"
+      },
+      "output_schema": {
+        "type": "object"
+      },
+      "requirements": {
+        "type": "array"
+      },
+      "libraries": {
+        "type": "array"
+      },
+      "tags": {
+        "type": "array"
+      },
+      "overwrite": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "name",
+      "summary"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object"
+  },
+  "requirements": [],
+  "libraries": [
+    "manifest_docs",
+    "plugin_runtime"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  },
+  "tags": [
+    "creation",
+    "plugins"
+  ]
+}

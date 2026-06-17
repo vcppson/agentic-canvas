@@ -1,0 +1,19 @@
+{
+  "name": "conversation_memory",
+  "version": "0.1.0",
+  "summary": "Stores, loads, and clears run-centered conversation memory for the workspace.",
+  "documentation": "Stores, loads, and clears run-centered conversation memory for the workspace.\n\n## API Reference\n\n### store_run_conversation\nType: function\nSource: __init__.py\nSignature: store_run_conversation(request: dict[str, Any]) -> dict[str, Any]\n\nStore the current run as a conversation memory record.\n\n### load_conversations\nType: function\nSource: __init__.py\nSignature: load_conversations(request: dict[str, Any], *, limit: int = 5) -> dict[str, Any]\n\nLoad recent prior run conversations and return a prompt section.\n\n### clear_conversations\nType: function\nSource: __init__.py\nSignature: clear_conversations(request: dict[str, Any], *, reason: str = '') -> dict[str, Any]\n\nClear conversation memory from future loads while preserving an audit record.\n\n### ConversationMemoryStore\nType: class\nSource: __init__.py\nSignature: class ConversationMemoryStore\n\nWorkspace storage manager for run-centered conversation memory.\n",
+  "exports": [
+    "store_run_conversation",
+    "load_conversations",
+    "clear_conversations",
+    "ConversationMemoryStore"
+  ],
+  "requirements": [],
+  "libraries": [
+    "plugin_runtime"
+  ],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}

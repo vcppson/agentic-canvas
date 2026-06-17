@@ -1,0 +1,24 @@
+{
+  "name": "llm_core",
+  "version": "0.1.0",
+  "summary": "Provider-neutral LLM contracts for workspace libraries and plugins.",
+  "documentation": "Provider-neutral LLM contracts for workspace libraries and plugins.\n\n## API Reference\n\n### LLMProvider\nType: class\nSource: __init__.py\nSignature: class LLMProvider(ABC)\n\nSynchronous provider interface used by workspace agents.\n\n### LLMRequest\nType: class\nSource: __init__.py\nSignature: class LLMRequest\n\nProvider-neutral synchronous completion request.\n\n### LLMResponse\nType: class\nSource: __init__.py\nSignature: class LLMResponse\n\nProvider-neutral completion response.\n\n### Message\nType: class\nSource: __init__.py\nSignature: class Message\n\nOne normalized conversation message.\n\n### ToolDefinition\nType: class\nSource: __init__.py\nSignature: class ToolDefinition\n\nProvider-neutral model tool definition.\n\n### ToolCall\nType: class\nSource: __init__.py\nSignature: class ToolCall\n\nOne tool invocation requested by a model.\n\n### Usage\nType: class\nSource: __init__.py\nSignature: class Usage\n\nNormalized token usage reported by a provider.\n\n### LLMError\nType: class\nSource: __init__.py\nSignature: class LLMError(RuntimeError)\n\nBase error raised by workspace LLM providers.\n\n### LLMConfigurationError\nType: class\nSource: __init__.py\nSignature: class LLMConfigurationError(LLMError)\n\nRaised when a provider is missing required configuration.\n\n### LLMProviderError\nType: class\nSource: __init__.py\nSignature: class LLMProviderError(LLMError)\n\nRaised when a provider request fails or returns an invalid response.\n\n### value\nType: function\nSource: __init__.py\nSignature: value(source: Any, name: str, default: Any = None) -> Any\n\nRead a field from either a mapping or an SDK response object.\n",
+  "exports": [
+    "LLMProvider",
+    "LLMRequest",
+    "LLMResponse",
+    "Message",
+    "ToolDefinition",
+    "ToolCall",
+    "Usage",
+    "LLMError",
+    "LLMConfigurationError",
+    "LLMProviderError",
+    "value"
+  ],
+  "requirements": [],
+  "libraries": [],
+  "compatibility": {
+    "agentic_canvas": ">=0.1.0"
+  }
+}
