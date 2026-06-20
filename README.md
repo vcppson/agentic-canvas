@@ -32,6 +32,44 @@ When running directly from the source tree without installing:
 uv run python -m agentic_canvas init .\workspace
 ```
 
+## Web Frontend
+
+The browser frontend is split from the core runtime:
+
+- `apps/api` is the FastAPI bridge from HTTP/SSE to the Python kernel.
+- `apps/web` is the Vite React app.
+
+Start the API from the repo root:
+
+```powershell
+$env:PYTHONPATH = "src;apps/api"
+uv run python -m agentic_canvas_api .\workspace
+```
+
+Start the web app in another terminal:
+
+```powershell
+cd apps\web
+npm install
+npm run dev
+```
+
+Vite proxies `/api` to `http://127.0.0.1:8765` by default. Override the
+development proxy target when the API runs elsewhere:
+
+```powershell
+$env:VITE_API_PROXY_TARGET = "https://api.example.com"
+npm run dev
+```
+
+The API accepts requests from the two local Vite origins by default. Configure
+a comma-separated production allowlist when the frontend is hosted elsewhere:
+
+```powershell
+$env:AGENTIC_CANVAS_CORS_ORIGINS = "https://app.example.com,https://admin.example.com"
+uv run python -m agentic_canvas_api .\workspace
+```
+
 The default provider is local and deterministic. Configure Gemini in
 `workspace.json` or `.env`:
 
@@ -95,5 +133,5 @@ workspace plugin through the existing plugin runner protocol.
 
 Plugins are trusted code in this release. They can access the filesystem,
 network, environment credentials, and provider SDKs directly. Kernel-mediated
-privileged services, streaming, async tools, retries, caching, budgets, and
-parallel tool execution remain future work.
+privileged services, provider token streaming, async tools, retries, caching,
+budgets, and parallel tool execution remain future work.

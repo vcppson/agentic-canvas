@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Callable
+from typing import Any, Callable
 
-from agentic_canvas.kernel.context import RunContext, RunContextStore, RunTraceStore
+from agentic_canvas.kernel.context import RunContext, RunContextStore, RunTraceStore, utc_now
 from agentic_canvas.kernel.plugin_runner import (
     PluginInputRequest,
     PluginRunner,
@@ -19,6 +19,7 @@ from agentic_canvas.providers.factory import provider_from_workspace
 
 
 InputProvider = Callable[[PluginInputRequest], str]
+EventHandler = Callable[[dict[str, Any]], None]
 
 
 class Kernel(RunLifecycleMixin):
@@ -31,6 +32,7 @@ class Kernel(RunLifecycleMixin):
         provider: LLMProvider | None = None,
         plugin_runner: PluginRunner | None = None,
         input_provider: InputProvider | None = None,
+        event_handler: EventHandler | None = None,
     ) -> None:
         self.workspace = Workspace(workspace_root)
         self.workspace.stage_order
@@ -39,6 +41,7 @@ class Kernel(RunLifecycleMixin):
         self.provider = provider or provider_from_workspace(self.workspace)
         self.plugin_runner = plugin_runner or self._plugin_runner_from_workspace()
         self.input_provider = input_provider
+        self.event_handler = event_handler
         self.plugin_registry = PluginRegistry(
             self.workspace.storage,
             self.workspace.config.get("plugins_dir", "plugins"),
@@ -66,7 +69,26 @@ class Kernel(RunLifecycleMixin):
             orchestrator_system_prompt=context.orchestrator_system_prompt,
         )
         self.store.save(context)
+        self._emit_event(
+            context,
+            "run_started",
+            status=context.status,
+            input=context.input,
+            trigger_type=trigger.type,
+            metadata=trigger.metadata,
+        )
         return self._run_from_start(context)
+
+    def _emit_event(self, context: RunContext, event_type: str, **data: Any) -> dict[str, Any]:
+        event = {
+            "type": event_type,
+            "timestamp": utc_now(),
+            "run_id": context.run_id,
+            **data,
+        }
+        if self.event_handler is not None:
+            self.event_handler(event)
+        return event
 
     def _plugin_runner_from_workspace(self) -> PluginRunner:
         config = self.workspace.plugin_runner_config

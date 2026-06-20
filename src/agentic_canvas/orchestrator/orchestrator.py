@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Callable
 
 from agentic_canvas.kernel.context import RunContext
 from agentic_canvas.kernel.context import RunTraceStore
@@ -41,6 +41,7 @@ class Orchestrator:
         input_handler: PluginInputHandler | None = None,
         plugin_call_handler: PluginCallHandler | None = None,
         max_turns: int = 20,
+        event_emitter: Callable[..., dict[str, Any]] | None = None,
     ) -> None:
         self.workspace = workspace
         self.plugin_runner = plugin_runner
@@ -49,6 +50,7 @@ class Orchestrator:
         self.input_handler = input_handler
         self.plugin_call_handler = plugin_call_handler
         self.max_turns = max_turns
+        self.event_emitter = event_emitter
 
     def tool_definitions(self, context: RunContext) -> list[ToolDefinition]:
         def call_plugin(name: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -57,6 +59,12 @@ class Orchestrator:
                 self.workspace.storage,
                 self.workspace.config.get("plugins_dir", "plugins"),
             ).get(name)
+            self._emit_event(
+                context,
+                "plugin_started",
+                plugin=name,
+                mode="call",
+            )
             result = self.plugin_runner.run(
                 workspace=self.workspace,
                 manifest=manifest,
@@ -65,6 +73,14 @@ class Orchestrator:
                 params=call_params,
                 input_handler=self.input_handler,
                 plugin_call_handler=self.plugin_call_handler,
+            )
+            self._emit_event(
+                context,
+                "plugin_finished",
+                plugin=name,
+                mode="call",
+                kind=result.kind,
+                ok=result.ok,
             )
             context.record_event(
                 "plugin_called",
@@ -148,6 +164,10 @@ class Orchestrator:
             return OrchestratorResult(control=exc.result)
 
         return OrchestratorResult(response=response)
+
+    def _emit_event(self, context: RunContext, event_type: str, **data: Any) -> None:
+        if self.event_emitter is not None:
+            self.event_emitter(context, event_type, **data)
 
 
 def compose_system_prompt(context: RunContext) -> str:

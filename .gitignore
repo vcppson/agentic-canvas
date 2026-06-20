@@ -15,3 +15,10 @@ wheels/
 .env
 .env.local
 .env.*.local
+
+# JavaScript app artifacts
+node_modules/
+apps/web/dist/
+
+
+workspace/

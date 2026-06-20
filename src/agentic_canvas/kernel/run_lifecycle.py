@@ -36,6 +36,13 @@ class RunLifecycleMixin:
         context.record_event("stage_started", stage=stage_name, start_index=start_index)
         self.trace_store.append(context, "stage_started", stage_name=stage_name, start_index=start_index)
         self.store.save(context)
+        self._emit_event(
+            context,
+            "stage_started",
+            stage=stage_name,
+            start_index=start_index,
+            status=context.status,
+        )
 
         entries = self.workspace.stage_plugins(stage_name)
         for index, entry in enumerate(entries[start_index:], start=start_index):
@@ -49,6 +56,14 @@ class RunLifecycleMixin:
                 index=index,
             )
             self.store.save(context)
+            self._emit_event(
+                context,
+                "plugin_started",
+                plugin=entry.name,
+                mode="stage",
+                stage=stage_name,
+                index=index,
+            )
 
             result = self.plugin_runner.run(
                 workspace=self.workspace,
@@ -80,6 +95,16 @@ class RunLifecycleMixin:
                 result=result.to_trace_dict(),
             )
             context.record_event(
+                "plugin_finished",
+                plugin=entry.name,
+                mode="stage",
+                stage=stage_name,
+                index=index,
+                kind=result.kind,
+                ok=result.ok,
+            )
+            self._emit_event(
+                context,
                 "plugin_finished",
                 plugin=entry.name,
                 mode="stage",
@@ -139,6 +164,7 @@ class RunLifecycleMixin:
         context.record_event("stage_finished", stage=stage_name)
         self.trace_store.append(context, "stage_finished", stage_name=stage_name)
         self.store.save(context)
+        self._emit_event(context, "stage_finished", stage=stage_name, status=context.status)
         return True
 
     def _execute_orchestrator(self, context: RunContext) -> bool:
@@ -164,6 +190,7 @@ class RunLifecycleMixin:
                 index=None,
             ),
             max_turns=int(self.workspace.provider_config.get("max_turns", 20)),
+            event_emitter=self._emit_event,
         )
         tool_schemas = [
             {
@@ -183,6 +210,12 @@ class RunLifecycleMixin:
             tools=tool_schemas,
         )
         self.store.save(context)
+        self._emit_event(
+            context,
+            "orchestrator_started",
+            input=context.input,
+            tools=tool_schemas,
+        )
         try:
             result = orchestrator.invoke(context)
         except Exception as exc:
@@ -209,6 +242,11 @@ class RunLifecycleMixin:
             response=context.orchestrator_response,
         )
         self.store.save(context)
+        self._emit_event(
+            context,
+            "orchestrator_finished",
+            response=context.orchestrator_response,
+        )
         return True
 
     def _handle_run_control(
@@ -263,6 +301,14 @@ class RunLifecycleMixin:
                 response=context.final_response,
             )
             self.store.save(context)
+            self._emit_event(
+                context,
+                "run_stopped",
+                plugin=source_plugin,
+                stage=stage,
+                status=context.status,
+                final_response=context.final_response,
+            )
             return
 
         if decision == Decision.AWAIT_USER:
@@ -292,6 +338,12 @@ class RunLifecycleMixin:
         context.record_event("run_completed")
         self.trace_store.append(context, "run_completed", final_response=context.final_response)
         self.store.save(context)
+        self._emit_event(
+            context,
+            "run_completed",
+            status=context.status,
+            final_response=context.final_response,
+        )
         return context
 
     def _abort(
@@ -314,6 +366,15 @@ class RunLifecycleMixin:
             stage_name=stage,
         )
         self.store.save(context)
+        self._emit_event(
+            context,
+            "run_aborted",
+            status=context.status,
+            reason=reason,
+            plugin=source_plugin,
+            stage=stage,
+            final_response=context.final_response,
+        )
         return context
 
     def _handle_plugin_input_request(
@@ -369,6 +430,17 @@ class RunLifecycleMixin:
             awaiting=context.awaiting,
         )
         self.store.save(context)
+        self._emit_event(
+            context,
+            "user_input_requested",
+            plugin=request.plugin_name,
+            mode=request.mode,
+            stage=stage,
+            index=index,
+            request_id=request.request_id,
+            message=request.message,
+            awaiting=context.awaiting,
+        )
 
         if self.input_provider is None:
             raise RuntimeError("No input provider is configured for plugin await_user().")
@@ -408,6 +480,15 @@ class RunLifecycleMixin:
             user_input=answer,
         )
         self.store.save(context)
+        self._emit_event(
+            context,
+            "user_input_received",
+            plugin=request.plugin_name,
+            mode=request.mode,
+            stage=stage,
+            index=index,
+            request_id=request.request_id,
+        )
         return answer
 
     def _handle_plugin_call_request(
@@ -419,6 +500,15 @@ class RunLifecycleMixin:
         index: int | None,
     ) -> dict[str, Any]:
         manifest = self.plugin_registry.get(request.plugin_name)
+        self._emit_event(
+            context,
+            "plugin_started",
+            plugin=request.plugin_name,
+            mode="command",
+            source_plugin=request.source_plugin_name,
+            stage=stage,
+            index=index,
+        )
         result = self.plugin_runner.run(
             workspace=self.workspace,
             manifest=manifest,
@@ -465,4 +555,15 @@ class RunLifecycleMixin:
             context.apply_patch(result.patch)
 
         self.store.save(context)
+        self._emit_event(
+            context,
+            "plugin_finished",
+            plugin=request.plugin_name,
+            mode="command",
+            source_plugin=request.source_plugin_name,
+            stage=stage,
+            index=index,
+            kind=result.kind,
+            ok=result.ok,
+        )
         return result.to_trace_dict()
